@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome Login</title>
+    <link th:href="@{/css/login.css}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<form action="#" th:action="@{/login}" method="post" th:object="${account}">
+    <table>
+        <tr>
+            <td class="msg">Account</td>
+            <td><input type="text" name="name" class="input"></td>
+            <td><label th:text="${msg.msg}" th:if="${msg != null && msg==msg.INVALID_ACCOUNT}" class="error"></label></td>
+        </tr>
+        <tr></tr>
+        <tr></tr>
+        <tr>
+            <td class="msg">Password</td>
+            <td><input type="password" name="password" class="input"></td>
+            <td><label th:text="${msg.msg}" th:if="${msg != null && msg==msg.ERROR_PWD}" class="error"></label></td>
+        </tr>
+        <tr></tr>
+        <tr></tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Login" class="submit"></td>
+            <td></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

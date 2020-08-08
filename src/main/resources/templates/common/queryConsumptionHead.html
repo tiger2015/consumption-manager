@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>查询</title>
+</head>
+<body>
+<div id="queryCondition" th:fragment="query_condition">
+    <script type="text/javascript" th:src="@{/js/query_head.js}"></script>
+    开始日期&nbsp;&nbsp;
+    <input id="start_date" type="text" th:name="begin"
+           th:value="${condition} == null ? ${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd')} : ${#dates.format(condition.begin, 'yyyy-MM-dd')}">&nbsp;&nbsp;
+    结束日期&nbsp;&nbsp;
+    <input id="end_date" type="text" th:name="end"
+           th:value="${condition} == null ? ${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd')} : ${#dates.format(condition.end, 'yyyy-MM-dd')}">&nbsp;&nbsp;
+    消费类型&nbsp;&nbsp;
+    <select th:name="consumptionType.id">
+        <option th:each="item:${consumptionTypes}" th:value="${item.id}" th:text="${item.name}"
+                th:selected="${condition.consumptionType.id} eq ${item.id}"></option>
+        <option value="-1" th:selected="${condition.consumptionType.id == -1}">所有</option>
+    </select>&nbsp;&nbsp;
+    支付方式&nbsp;&nbsp;
+    <select th:name="payType.id">
+        <option th:each="item:${payTypes}" th:value="${item.id}" th:text="${item.name}"
+                th:selected="${condition.payType.id} eq ${item.id}"></option>
+        <option value="-1" th:selected="${condition.payType.id == -1}">所有</option>
+    </select>&nbsp;&nbsp;
+    <input th:hidden="'hidden'" th:value="${condition.page}" th:name="page" id="page">
+    <input type="button" value="查询" id="query">
+</div>
+</body>
+</html>

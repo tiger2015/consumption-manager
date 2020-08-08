@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:include="common/header::common_resources"></th:block>
+    <script type="text/javascript" th:src="@{/js/statistic_consumption.js}"></script>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/statistic_consumption.css}">
+</head>
+<body>
+<div id="main">
+    <div th:include="common/header :: header">
+    </div>
+    <div th:include="common/menu :: main_menu">
+    </div>
+    <div>
+        <form action="#" th:action="@{/statisticConsumption}" th:object="${condition}" method="post">
+            <div th:include="common/queryConsumptionHead :: query_condition"></div>
+        </form>
+    </div>
+    <div id="result">
+        <label th:if="${statisticSum == null}">
+            无消费记录
+        </label>
+        <div th:if="${statisticSum != null}">
+            <table cellspacing="0">
+                <thead>
+                <th>编号</th>
+                <th>消费类型</th>
+                <th>支付类型</th>
+                <th>总额</th>
+                </thead>
+                <tbody>
+                <tr th:each="item,itemStat:${statisticList}">
+                    <td th:text="${itemStat.index+1}"></td>
+                    <td th:text="${item.consumptionType.name}"></td>
+                    <td th:text="${item.payType.name}"></td>
+                    <td th:text="${#numbers.formatDecimal(item.total, 0, 2)}"></td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td th:text="'总计'"></td>
+                    <td></td>
+                    <td></td>
+                    <td th:text="${#numbers.formatDecimal(statisticSum.total, 0, 2)}"></td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

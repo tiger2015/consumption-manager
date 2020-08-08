@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:include="common/header::common_resources"></th:block>
+    <link th:href="@{/css/list_consumption.css}" rel="stylesheet" type="text/css">
+    <script type="text/javascript" th:src="@{/js/list_consumption.js}"></script>
+</head>
+<body>
+<div id="main">
+    <div th:include="common/header :: header">
+    </div>
+    <div th:include="common/menu :: main_menu">
+    </div>
+    <div>
+        <form action="#" th:action="@{/listAll}" method="post" th:object="${condition}">
+            <div th:include="common/queryConsumptionHead :: query_condition"></div>
+        </form>
+    </div>
+    <div>
+        <table th:if="${records != null && #lists.size(records.result) > 0}" cellspacing="0">
+            <thead>
+            <th>序号</th>
+            <th>日期</th>
+            <th>消费类别</th>
+            <th>金额</th>
+            <th>支付方式</th>
+            <th>创建时间</th>
+            <th></th>
+            <th></th>
+            </thead>
+            <tbody>
+            <tr th:each="item, itemStat: ${records.result}">
+                <td th:text="${itemStat.index + 1}"></td>
+                <td th:text="${#dates.format(item.time, 'yyyy-MM-dd')}"></td>
+                <td th:text="${item.consumptionType.name}"></td>
+                <td th:text="${#numbers.formatDecimal(item.amount, 0, 2)}"></td>
+                <td th:text="${item.payType.name}"></td>
+                <td th:text="${#dates.format(item.createTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                <td>
+                    <a th:href="@{'/get?target=updateConsumptionRecord&id=' + ${item.id}}">编辑</a>
+                </td>
+                <td><input type="checkbox" th:value="${item.id}" name="recordIds"></td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td th:text="'当前页:' + ${records.current}"></td>
+                <td th:text="'总页数:' + ${records.total}"></td>
+                <td>
+                    <a th:href="'#'" id="next_page">下一页</a>
+                </td>
+                <td>
+                    <a th:href="'#'" id="prev_page">上一页</a>
+                </td>
+                <td></td>
+                <td></td>
+                <td><input type="button" value="删除" id="deleteAll"></td>
+                <td><input type="checkbox" id="selectedAll">全选</td>
+            </tr>
+            </tfoot>
+        </table>
+        <label th:if="${records != null && #lists.size(records.result) ==0}" th:text="消费记录为空"></label>
+    </div>
+</div>
+</body>
+</html>

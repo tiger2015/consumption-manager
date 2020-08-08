@@ -1,0 +1,13 @@
+#main div:not(table) {
+    text-align: center;
+}
+
+#main div {
+    margin-top: 5px;
+}
+
+#main table {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}

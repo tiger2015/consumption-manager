@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tiger.consumption.manager.dao.ConsumptionStatisticDao">
+    <resultMap id="consumptionStatistic" type="com.tiger.consumption.manager.model.ConsumptionStatistic">
+        <result column="id" property="id"/>
+        <result column="begin" property="begin"/>
+        <result column="end" property="end"/>
+        <result column="total" property="total"/>
+        <result column="consumption_type" property="consumptionType.id"/>
+        <result column="consumption_type_name" property="consumptionType.name"/>
+        <result column="pay_type" property="payType.id"/>
+        <result column="pay_type_name" property="payType.name"/>
+    </resultMap>
+    <sql id="time_between">
+         <![CDATA[ t1.time >= #{begin, jdbcType=DATE} AND t1.time <= #{end, jdbcType=DATE}]]>
+    </sql>
+
+    <sql id="consumptionType_check">
+        and t1.type = t2.id
+        <if test="consumptionType != null  and consumptionType.id != -1">
+            and t1.type=#{consumptionType.id}
+        </if>
+    </sql>
+
+    <sql id="payType_check">
+         and t1.pay_type = t3.id
+        <if test="payType != null and payType.id != -1">
+            and t1.pay_type = #{payType.id}
+        </if>
+    </sql>
+
+    <select id="statisticConsumption" resultMap="consumptionStatistic">
+        select sum(t1.`amount`) as total, t2.`id` as consumption_type, t2.`name` as consumption_type_name, t3.`id` as
+        pay_type, t3.`name` as pay_type_name from consumption_record t1, consumption_type t2, pay_type t3
+        where
+        <include refid="time_between"/>
+        <include refid="consumptionType_check"/>
+        <include refid="payType_check"/>
+        group by t2.`id`, t3.`id`
+    </select>
+
+    <select id="statisticTotalConsumption" resultMap="consumptionStatistic">
+        select sum(t1.`amount`) as total, t2.`id` as consumption_type, t2.`name` as consumption_type_name, t3.`id` as
+        pay_type, t3.`name` as pay_type_name from consumption_record t1, consumption_type t2, pay_type t3
+        where
+        <include refid="time_between"/>
+        <include refid="consumptionType_check"/>
+        <include refid="payType_check"/>
+    </select>
+
+</mapper>

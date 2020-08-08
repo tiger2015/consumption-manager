@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<th:block th:fragment="main_menu">
+    <script type="text/javascript" th:src="@{/js/menu.js}"></script>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/menu.css}"/>
+    <ul>
+        <li id="query_menu">查询</li>
+        <li id="add_menu">添加</li>
+        <li id="statistic_menu">统计</li>
+    </ul>
+</th:block>
+</body>
+</html>

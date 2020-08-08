@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <th:block th:include="common/header::common_resources"></th:block>
+    <script type="text/javascript" th:src="@{/js/add_consumption_record.js}"></script>
+    <link type="text/css" rel="stylesheet" th:href="@{/css/add_consumption.css}">
+</head>
+<body>
+<div id="main">
+    <div th:include="common/header :: header">
+    </div>
+    <div th:include="common/menu :: main_menu">
+    </div>
+    <div>
+    <form action="#" th:action="@{/add}" method="post" th:object="${record}">
+        <table>
+            <tr>
+                <td>消费类型</td>
+                <td><select th:name="consumptionType.id">
+                    <option th:each="type:${consumptionTypes}" th:value="${type.id}" th:text="${type.name}"></option>
+                </select></td>
+            </tr>
+            <tr>
+                <td>金额</td>
+                <td><input th:name="amount"></td>
+            </tr>
+            <tr>
+                <td>支付方式</td>
+                <td>
+                    <select th:name="payType.id">
+                          <option th:each="type:${payTypes}" th:value="${type.id}" th:text="${type.name}"></option>
+                   </select>
+                </td>
+            </tr>
+            <tr>
+                <td>日期</td>
+                <td><input id="date" type="text" th:name="time"></td>
+            </tr>
+            <tr>
+                <td>说明</td>
+                <td><textarea cols="60" rows="10" th:name="comment"></textarea></td>
+            </tr>
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <input type="submit" value="新增">
+                </td>
+            </tr>
+        </table>
+    </form>
+    </div>
+</div>
+</body>
+</html>

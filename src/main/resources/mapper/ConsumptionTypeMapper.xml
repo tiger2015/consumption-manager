@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tiger.consumption.manager.dao.ConsumptionTypeDao">
+    <resultMap id="consumptionType" type="com.tiger.consumption.manager.model.ConsumptionType">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="desc" property="description"/>
+    </resultMap>
+
+    <select id="selectAll" resultMap="consumptionType">
+        select * from consumption_type
+    </select>
+</mapper>
