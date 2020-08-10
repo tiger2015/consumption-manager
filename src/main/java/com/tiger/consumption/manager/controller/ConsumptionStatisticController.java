@@ -50,6 +50,6 @@ public class ConsumptionStatisticController {
         model.addAttribute("condition", condition);
         model.addAttribute("statisticSum", total);
         model.addAttribute("statisticList", list);
-        return "statisticConsumption";
+        return "/common/menu";
     }
 }

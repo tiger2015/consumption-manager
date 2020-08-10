@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <th:block th:include="common/header::common_resources"></th:block>
-    <script type="text/javascript" th:src="@{/js/statistic_consumption.js}"></script>
-    <link type="text/css" rel="stylesheet" th:href="@{/css/statistic_consumption.css}">
+    <!--<th:block th:include="common/header::common_resources"></th:block>-->
+    <!--<script type="text/javascript" th:src="@{/js/statistic_consumption.js}"></script>-->
+    <!--<link type="text/css" rel="stylesheet" th:href="@{/css/statistic_consumption.css}">-->
 </head>
 <body>
-<div id="main">
-    <div th:include="common/header :: header">
-    </div>
-    <div th:include="common/menu :: main_menu">
-    </div>
+<div id="main" th:fragment="statistic">
+    <!--<div th:include="common/header :: header">-->
+    <!--</div>-->
+    <!--<div th:include="common/menu :: main_menu">-->
+    <!--</div>-->
     <div>
         <form action="#" th:action="@{/statisticConsumption}" th:object="${condition}" method="post">
-            <div th:include="common/queryConsumptionHead :: query_condition"></div>
+            <div th:include="common/queryCondition :: query_condition"></div>
         </form>
     </div>
     <div id="result">

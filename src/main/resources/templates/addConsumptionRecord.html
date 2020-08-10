@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <th:block th:include="common/header::common_resources"></th:block>
-    <script type="text/javascript" th:src="@{/js/add_consumption_record.js}"></script>
-    <link type="text/css" rel="stylesheet" th:href="@{/css/add_consumption.css}">
+    <!--<th:block th:include="common/header::common_resources"></th:block>-->
+    <!--<script type="text/javascript" th:src="@{/js/add_consumption_record.js}"></script>-->
+    <!--<link type="text/css" rel="stylesheet" th:href="@{/css/add_consumption.css}">-->
 </head>
 <body>
-<div id="main">
-    <div th:include="common/header :: header">
-    </div>
-    <div th:include="common/menu :: main_menu">
-    </div>
+<div id="main" th:fragment="addConsumption">
+    <!--<div th:include="common/header :: header">-->
+    <!--</div>-->
+    <!--<div th:include="common/menu :: main_menu">-->
+    <!--</div>-->
     <div>
     <form action="#" th:action="@{/add}" method="post" th:object="${record}">
         <table>

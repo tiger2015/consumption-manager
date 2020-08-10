@@ -59,7 +59,7 @@ public class LoginController {
             model.addAttribute("condition", condition);
             model.addAttribute("consumptionTypes", consumptionTypeDao.selectAll());
             model.addAttribute("payTypes", payTypeDao.selectAll());
-            return "listConsumption";
+            return "menu";
         }
         return "index";
     }

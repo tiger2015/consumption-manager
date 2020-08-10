@@ -39,7 +39,7 @@ public class ConsumptionRecordController {
                       Model model) {
         log.info("type:{}", consumptionRecord.getConsumptionType().getId());
         recordService.add(consumptionRecord);
-        return listAll(request,null, model);
+        return listAll(request,new QueryConsumptionCondition(), model);
     }
 
     @RequestMapping(value = "/listAll", method = RequestMethod.POST)
@@ -62,7 +62,7 @@ public class ConsumptionRecordController {
         model.addAttribute("consumptionTypes", consumptionTypeDao.selectAll());
         model.addAttribute("payTypes", payTypeDao.selectAll());
         request.getSession().setAttribute("queryCondition", condition);
-        return "listConsumption";
+        return "menu";
     }
 
 
