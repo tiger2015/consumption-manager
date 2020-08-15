@@ -1,4 +1,25 @@
 $(function () {
+    $.datetimepicker.setLocale('ch');
+    $("#start_date").datetimepicker({
+        timepicker: false,
+        format: 'Y-m-d'
+    });
+
+    $("#end_date").datetimepicker({
+        timepicker: false,
+        format: 'Y-m-d'
+    });
+
+    $('#consumption_date').datetimepicker({
+        timepicker: false,
+        format: 'Y-m-d'
+    })
+
+    $("#query").click(function () {
+        $("#page").attr("value","1");
+        $("form:first").submit();
+    })
+
 
     $("#selectedAll").change(function () {
         if (this.checked) {
@@ -44,8 +65,16 @@ $(function () {
 
     $("#prev_page").click(function () {
         var page = $("#page").attr("value");
-        console.log("page:"+page)
+        //console.log("page:"+page)
         $("#page").attr("value", parseInt(page) - 1);
         $("form:first").submit();
     });
+
+    $("a[name='pageIndex']").click(function () {
+            var page = this.attributes["value"];
+            console.log(page)
+            $("#page").attr("value", page.value);
+            $("form:first").submit();
+        }
+    );
 });

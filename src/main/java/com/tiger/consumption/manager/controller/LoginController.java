@@ -43,8 +43,7 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public String login(HttpServletRequest request, @ModelAttribute(value = "account") User user, Model model,
-                        RedirectAttributes redirectAttributes) {
+    public String login(HttpServletRequest request, @ModelAttribute(value = "account") User user, Model model) {
         log.info("user:{}", user.getName());
         Account account = accountDao.findByName(user.getName());
         if (account == null) {
@@ -52,14 +51,9 @@ public class LoginController {
         } else if (!account.getPassword().equals(user.getPassword())) {
             model.addAttribute("msg", ResponseMessage.ERROR_PWD);
         } else {
+            request.getSession().removeAttribute("queryCondition");
             request.getSession().setAttribute("account", user.getName());
-            QueryConsumptionCondition condition = new QueryConsumptionCondition();
-            condition.setPage(1);
-            // request.getSession().setAttribute("queryCondition", condition);
-            model.addAttribute("condition", condition);
-            model.addAttribute("consumptionTypes", consumptionTypeDao.selectAll());
-            model.addAttribute("payTypes", payTypeDao.selectAll());
-            return "menu";
+            return "redirect:/listAll";
         }
         return "index";
     }

@@ -2,10 +2,13 @@ package com.tiger.consumption.manager.service;
 
 import com.tiger.consumption.manager.common.PageResult;
 import com.tiger.consumption.manager.model.ConsumptionRecord;
+import com.tiger.consumption.manager.model.ConsumptionStatistic;
 import com.tiger.consumption.manager.model.ConsumptionType;
 import com.tiger.consumption.manager.model.PayType;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Auther: Zeng Hu
@@ -26,5 +29,4 @@ public interface ConsumptionRecordService {
     Integer delete(Long ...ids);
 
     PageResult<ConsumptionRecord> findAllByConditionAndPage(Date begin, Date end, ConsumptionType consumptionType, PayType payType, int pageNumber);
-
 }

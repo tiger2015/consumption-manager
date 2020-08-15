@@ -22,6 +22,6 @@ public class WebConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/**/**/*.html")
                 .excludePathPatterns("/**/**/*.js")
                 .excludePathPatterns("/**/**/*.css");
-        registry.addInterceptor(new ErrorPageInterceptor());
+      // registry.addInterceptor(new ErrorPageInterceptor());
     }
 }

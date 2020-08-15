@@ -13,7 +13,7 @@ import java.util.List;
  **/
 public class PageResult<T> implements Serializable {
     private static final long serialVersionUID = 1541831407472077968L;
-    public static final int PAGE_SIZE = 20;
+    public static final int PAGE_SIZE = 15;
     private int total;
     private int pageSize;
     private int current;

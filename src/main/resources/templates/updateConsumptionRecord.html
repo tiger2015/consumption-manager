@@ -3,65 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <!--<th:block th:include="common/header::common_resources"></th:block>-->
-    <!--<script type="text/javascript" th:src="@{/js/add_consumption_record.js}"></script>-->
-    <!--<link type="text/css" rel="stylesheet" th:href="@{/css/add_consumption.css}">-->
+    <th:block th:include="common/common::common_resources"></th:block>
 </head>
 <body>
-<div id="main" th:fragment="updateConsumption">
-    <!--<div th:include="common/header :: header">-->
-    <!--</div>-->
-    <!--<div th:include="common/menu :: main_menu">-->
-    <!--</div>-->
-    <div>
-        <form action="#" th:action="@{/update}" method="post" th:object="${record}">
-            <table>
-                <tr>
-                    <td>消费类型</td>
-                    <td>
-                        <select th:name="consumptionType.id">
-                             <option th:each="type:${consumptionTypes}" th:value="${type.id}" th:text="${type.name}"
-                                     th:selected="${type.id} eq ${record.consumptionType.id}"></option>
-                         </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>金额</td>
-                    <td>
-                        <input th:name="amount" th:value="${record.amount}">
-                    </td>
-                </tr>
-                <tr>
-                    <td>支付方式</td>
-                    <td>
-                        <select th:name="payType.id">
-                            <option th:each="type:${payTypes}" th:value="${type.id}" th:text="${type.name}"
-                                    th:selected="${type.id} eq ${record.payType.id}"></option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <td>日期</td>
-                    <td>
-                        <input id="date" type="text" th:name="time"
-                               th:value="${#dates.format(record.time, 'yyyy-MM-dd')}">
-                    </td>
-                </tr>
-                <tr>
-                    <td>说明</td>
-                    <td>
-                        <textarea cols="60" rows="10" th:name="comment" th:value="${record.comment}"></textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <input type="submit" value="更新">
-                    </td>
-                </tr>
-            </table>
-        </form>
+<div th:include="common/menu::main_menu"></div>
+<form action="#" th:action="@{/update}" method="post" th:object="${record}" class="form-horizontal">
+    <div class="form-group">
+        <label class="control-label col-sm-1">消费类型</label>
+        <div class="col-lg-2">
+            <select th:name="consumptionType.id" class="form-control">
+                <option th:each="type:${consumptionTypes}" th:value="${type.id}" th:text="${type.name}"
+                        th:selected="${type.id} eq ${record.consumptionType.id}"></option>
+            </select>
+        </div>
     </div>
-</div>
+    <div class="form-group">
+        <label class="control-label col-sm-1">金额</label>
+        <div class="col-lg-2">
+            <div class="input-group">
+                <input th:name="amount" th:value="${record.amount}" class="form-control">
+                <div class="input-group-addon">￥</div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-1">支付方式</label>
+        <div class="col-lg-2">
+            <select th:name="payType.id" class="form-control">
+                <option th:each="type:${payTypes}" th:value="${type.id}" th:text="${type.name}"
+                        th:selected="${type.id} eq ${record.payType.id}"></option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-1">日期</label>
+        <div class="col-lg-2">
+            <input id="consumption_date" type="text" th:name="time"
+                   th:value="${#dates.format(record.time, 'yyyy-MM-dd')}" class="form-control">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-1">说明</label>
+        <div class="col-lg-2">
+            <textarea rows="10" th:name="comment" th:value="${record.comment}" class="form-control"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        <input class="hidden" th:value="${record.id}" th:name="id">
+        <div class="col-sm-offset-1 col-lg-2">
+            <button type="submit" class="btn">更新</button>
+        </div>
+    </div>
+</form>
 </body>
 </html>

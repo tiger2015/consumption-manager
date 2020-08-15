@@ -3,55 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <!--<th:block th:include="common/header::common_resources"></th:block>-->
-    <!--<script type="text/javascript" th:src="@{/js/add_consumption_record.js}"></script>-->
-    <!--<link type="text/css" rel="stylesheet" th:href="@{/css/add_consumption.css}">-->
+    <th:block th:include="common/common::common_resources"></th:block>
 </head>
 <body>
-<div id="main" th:fragment="addConsumption">
-    <!--<div th:include="common/header :: header">-->
-    <!--</div>-->
-    <!--<div th:include="common/menu :: main_menu">-->
-    <!--</div>-->
-    <div>
-    <form action="#" th:action="@{/add}" method="post" th:object="${record}">
-        <table>
-            <tr>
-                <td>消费类型</td>
-                <td><select th:name="consumptionType.id">
-                    <option th:each="type:${consumptionTypes}" th:value="${type.id}" th:text="${type.name}"></option>
-                </select></td>
-            </tr>
-            <tr>
-                <td>金额</td>
-                <td><input th:name="amount"></td>
-            </tr>
-            <tr>
-                <td>支付方式</td>
-                <td>
-                    <select th:name="payType.id">
-                          <option th:each="type:${payTypes}" th:value="${type.id}" th:text="${type.name}"></option>
-                   </select>
-                </td>
-            </tr>
-            <tr>
-                <td>日期</td>
-                <td><input id="date" type="text" th:name="time"></td>
-            </tr>
-            <tr>
-                <td>说明</td>
-                <td><textarea cols="60" rows="10" th:name="comment"></textarea></td>
-            </tr>
-            <tr>
-                <td>
-                </td>
-                <td>
-                    <input type="submit" value="新增">
-                </td>
-            </tr>
-        </table>
+<div>
+    <div th:include="common/menu::main_menu"></div>
+    <form action="#" th:action="@{/add}" method="post" th:object="${record}" class="form-horizontal">
+        <div class="form-group">
+            <label class="col-lg-1 control-label">消费类型</label>
+            <div class="col-lg-2">
+                <select th:name="consumptionType.id" class="form-control">
+                    <option th:each="type:${consumptionTypes}" th:value="${type.id}"
+                            th:text="${type.name}"></option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-1">金额</label>
+            <div class="col-lg-2">
+                <div class="input-group">
+                    <input id="inputPassword" th:name="amount"type="text" class="form-control">
+                    <div class="input-group-addon">￥</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-1">支付方式</label>
+            <div class="col-lg-2">
+                <select th:name="payType.id" class="form-control">
+                    <option th:each="type:${payTypes}" th:value="${type.id}" th:text="${type.name}"></option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-1">日期</label>
+            <div class="col-lg-2">
+                <input id="consumption_date" type="text" th:name="time" class="form-control">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-lg-1">说明</label>
+            <div class="col-lg-2">
+                <textarea rows="10" th:name="comment" class="form-control"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-offset-1 col-lg-2" >
+                <button type="submit" class="btn">新增</button>
+            </div>
+        </div>
     </form>
-    </div>
 </div>
 </body>
 </html>

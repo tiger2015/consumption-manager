@@ -5,6 +5,7 @@ import com.tiger.consumption.manager.dao.ConsumptionTypeDao;
 import com.tiger.consumption.manager.dao.PayTypeDao;
 import com.tiger.consumption.manager.model.ConsumptionRecord;
 import com.tiger.consumption.manager.common.QueryConsumptionCondition;
+import com.tiger.consumption.manager.model.ConsumptionStatistic;
 import com.tiger.consumption.manager.service.ConsumptionRecordService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @Auther: Zeng Hu
@@ -39,18 +42,20 @@ public class ConsumptionRecordController {
                       Model model) {
         log.info("type:{}", consumptionRecord.getConsumptionType().getId());
         recordService.add(consumptionRecord);
-        return listAll(request,new QueryConsumptionCondition(), model);
+        return listAll(request, new QueryConsumptionCondition(), model);
     }
 
-    @RequestMapping(value = "/listAll", method = RequestMethod.POST)
-    public String listAll(HttpServletRequest request, @ModelAttribute(name = "condition") QueryConsumptionCondition condition,
+    @RequestMapping(value = "/listAll", method = {RequestMethod.POST, RequestMethod.GET})
+    public String listAll(HttpServletRequest request,
+                          @ModelAttribute(name = "condition") QueryConsumptionCondition condition,
                           Model model) {
         log.info("list all");
         if (condition == null || condition.getPage() == QueryConsumptionCondition.MAX_PAGE) {
             log.info("condition null");
             condition = request.getSession().getAttribute("queryCondition") == null ?
                     new QueryConsumptionCondition() : (QueryConsumptionCondition) request.getSession().getAttribute(
-                            "queryCondition");
+                    "queryCondition");
+            condition.setPage(1);
         }
         log.info("before page:{}", condition.getPage());
         PageResult<ConsumptionRecord> result = recordService.findAllByConditionAndPage(condition.getBegin(),
@@ -62,7 +67,7 @@ public class ConsumptionRecordController {
         model.addAttribute("consumptionTypes", consumptionTypeDao.selectAll());
         model.addAttribute("payTypes", payTypeDao.selectAll());
         request.getSession().setAttribute("queryCondition", condition);
-        return "menu";
+        return "listConsumption";
     }
 
 
@@ -91,4 +96,7 @@ public class ConsumptionRecordController {
         recordService.delete(ids);
         return listAll(request, null, model);
     }
+
+
+
 }

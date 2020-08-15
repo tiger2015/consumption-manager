@@ -11,8 +11,18 @@
         <result column="pay_type" property="payType.id"/>
         <result column="pay_type_name" property="payType.name"/>
     </resultMap>
+
+    <resultMap id="monthConsumptionStatistic" type="com.tiger.consumption.manager.model.MonthConsumptionStatistic">
+        <result column="month" property="month"/>
+        <result column="total" property="total"/>
+        <result column="consumption_type_name" property="type.name"/>
+        <result column="consumption_type" property="type.id"/>
+    </resultMap>
+
     <sql id="time_between">
-         <![CDATA[ t1.time >= #{begin, jdbcType=DATE} AND t1.time <= #{end, jdbcType=DATE}]]>
+         <![CDATA[
+         t1.time >= #{begin, jdbcType=DATE} AND t1.time <= #{end, jdbcType=DATE}
+        ]]>
     </sql>
 
     <sql id="consumptionType_check">
@@ -23,7 +33,7 @@
     </sql>
 
     <sql id="payType_check">
-         and t1.pay_type = t3.id
+        and t1.pay_type = t3.id
         <if test="payType != null and payType.id != -1">
             and t1.pay_type = #{payType.id}
         </if>
@@ -39,6 +49,7 @@
         group by t2.`id`, t3.`id`
     </select>
 
+    <!--
     <select id="statisticTotalConsumption" resultMap="consumptionStatistic">
         select sum(t1.`amount`) as total, t2.`id` as consumption_type, t2.`name` as consumption_type_name, t3.`id` as
         pay_type, t3.`name` as pay_type_name from consumption_record t1, consumption_type t2, pay_type t3
@@ -47,5 +58,14 @@
         <include refid="consumptionType_check"/>
         <include refid="payType_check"/>
     </select>
+    -->
 
+    <select id="statisticConsumptionByMonth" resultMap="monthConsumptionStatistic">
+        select MONTH(t1.time) as `month`, sum(t1.`amount`) as `total`, t2.`id` as `consumption_type`, t2.`name` as `consumption_type_name`
+        from consumption_record t1, consumption_type t2
+        where t1.`type` = t2.`id`
+        and month(t1.time) = #{month}
+        and YEAR(t1.time) = #{year}
+        group by MONTH(t1.`time`), t1.`type`;
+    </select>
 </mapper>

@@ -1,6 +1,7 @@
 package com.tiger.consumption.manager.dao;
 
 import com.tiger.consumption.manager.model.ConsumptionRecord;
+import com.tiger.consumption.manager.model.ConsumptionStatistic;
 import com.tiger.consumption.manager.model.ConsumptionType;
 import com.tiger.consumption.manager.model.PayType;
 import org.apache.ibatis.annotations.Mapper;

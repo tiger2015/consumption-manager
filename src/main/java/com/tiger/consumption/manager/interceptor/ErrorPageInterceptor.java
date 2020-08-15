@@ -33,7 +33,7 @@ public class ErrorPageInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if (errorCodes.contains(response.getStatus())) {
-            response.sendRedirect("/common/error/"+response.getStatus());
+            response.sendRedirect("./common/error.html");
             return false;
         }
         return super.preHandle(request, response, handler);

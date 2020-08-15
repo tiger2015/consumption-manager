@@ -3,23 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <!--<th:block th:include="common/header::common_resources"></th:block>-->
-    <!--<link th:href="@{/css/list_consumption.css}" rel="stylesheet" type="text/css">-->
-    <!--<script type="text/javascript" th:src="@{/js/list_consumption.js}"></script>-->
+    <th:block th:include="common/common::common_resources"></th:block>
 </head>
 <body>
-<div id="main" th:fragment="listConsumption">
-    <!--<div th:include="common/header :: header">-->
-    <!--</div>-->
-    <!--<div th:include="common/menu :: main_menu">-->
-    <!--</div>-->
+<div>
+    <div th:include="common/menu::main_menu"></div>
+    <form action="#" th:action="@{/listAll}" method="post" th:object="${condition}" class="form-inline">
+        <div th:include="common/queryCondition :: query_condition"></div>
+    </form>
     <div>
-        <form action="#" th:action="@{/listAll}" method="post" th:object="${condition}">
-            <div th:include="common/queryCondition :: query_condition"></div>
-        </form>
-    </div>
-    <div>
-        <table th:if="${records != null && #lists.size(records.result) > 0}" cellspacing="0" class="table table-striped table-hover">
+        <table th:if="${records != null && #lists.size(records.result) > 0}"
+               class="table table-striped table-hover table-responsive">
             <thead>
             <th>序号</th>
             <th>日期</th>
@@ -38,26 +32,65 @@
                 <td th:text="${#numbers.formatDecimal(item.amount, 0, 2)}"></td>
                 <td th:text="${item.payType.name}"></td>
                 <td th:text="${#dates.format(item.createTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                <td>
+                <td class="tab">
                     <a th:href="@{'/get?target=updateConsumptionRecord&id=' + ${item.id}}">编辑</a>
                 </td>
-                <td><input type="checkbox" th:value="${item.id}" name="recordIds"></td>
+                <td>
+                    <input type="checkbox" th:value="${item.id}" name="recordIds">
+                </td>
             </tr>
             </tbody>
             <tfoot>
             <tr>
-                <td th:text="'当前页:' + ${records.current}"></td>
-                <td th:text="'总页数:' + ${records.total}"></td>
-                <td>
-                    <a th:href="'#'" id="next_page">下一页</a>
-                </td>
-                <td>
-                    <a th:href="'#'" id="prev_page">上一页</a>
+                <td colspan="3">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination">
+                            <li>
+                                <a href="#" aria-label="Previous" id="prev_page">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li th:if="${records.current - 2 gt 0}">
+                                <a href="#" th:text="${records.current - 2}" th:value="${records.current - 2}" name="pageIndex"></a>
+                            </li>
+                            <li th:if="${records.current - 1 gt 0}">
+                                <a href="#" th:text="${records.current - 1}" th:value="${records.current - 1}" name="pageIndex"></a>
+                            </li>
+                            <li class="active">
+                                <a href="#" th:text="${records.current}" th:value="${records.current}" name="pageIndex" ></a>
+                            </li>
+                            <li th:if="${records.current +1 le  records.total}">
+                                <a href="#" th:text="${records.current + 1}" th:value="${records.current + 1}" name="pageIndex"></a>
+                            </li>
+                            <li th:if="${records.current +2 le  records.total}">
+                                <a href="#" th:text="${records.current + 2}" th:value="${records.current + 2}" name="pageIndex"></a>
+                            </li>
+                            <li th:if="${records.current + 3 le  records.total &&  (records.current - 2) le 0}">
+                                <a href="#" th:text="${records.current + 3}" th:value="${records.current + 3}" name="pageIndex"></a>
+                            </li>
+                            <li th:if="${records.current + 4 le  records.total &&  (records.current - 1) le 0}">
+                                <a href="#" th:text="${records.current + 4}" th:value="${records.current + 4}" name="pageIndex"></a>
+                            </li>
+                            <li>
+                                <a href="#" aria-label="Next" id="next_page">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
                 </td>
                 <td></td>
                 <td></td>
-                <td><input type="button" value="删除" id="deleteAll"></td>
-                <td><input type="checkbox" id="selectedAll">全选</td>
+                <td></td>
+                <td></td>
+                <td>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" id="selectedAll">全选
+                        </label>
+                        <input type="button" value="删除" id="deleteAll" class="btn">
+                    </div>
+                </td>
             </tr>
             </tfoot>
         </table>

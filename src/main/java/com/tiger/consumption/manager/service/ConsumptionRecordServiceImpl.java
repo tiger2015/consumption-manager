@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.tiger.consumption.manager.common.PageResult;
 import com.tiger.consumption.manager.dao.ConsumptionRecordDao;
 import com.tiger.consumption.manager.model.ConsumptionRecord;
+import com.tiger.consumption.manager.model.ConsumptionStatistic;
 import com.tiger.consumption.manager.model.ConsumptionType;
 import com.tiger.consumption.manager.model.PayType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,4 +71,5 @@ public class ConsumptionRecordServiceImpl implements ConsumptionRecordService {
         result.setPageSize(page.getPageSize());
         return result;
     }
+
 }

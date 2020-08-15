@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<th:block th:fragment="main_menu">
+    <script type="text/javascript" th:src="@{/js/menu/menu.js}"></script>
+    <div class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">消费管理</a>
+            </div>
+            <div>
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#" id="query_menu">查询</a>
+                    </li>
+                    <li>
+                        <a href="#" id="add_menu">添加</a>
+                    </li>
+                    <li>
+                        <a href="#" id="statistic_menu">统计</a>
+                    </li>
+                    <li>
+                        <a href="#" id="show_chart_menu">统计图</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" id="unregister" th:text="'注销:'+${session.account}"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</th:block>
+</body>
+</html>
