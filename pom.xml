@@ -6,7 +6,7 @@
 
     <groupId>consumption-manager</groupId>
     <artifactId>tiger</artifactId>
-    <version>1.1</version>
+    <version>1.2</version>
 
     <name>consumption-manager</name>
     <!-- FIXME change it to the project's website -->
