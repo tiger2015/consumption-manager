@@ -9,13 +9,13 @@
     <div class="form-group">
         <label>开始日期</label>
         <input id="start_date" type="text" th:name="begin"
-               th:value="${condition} == null ? ${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd')} : ${#dates.format(condition.begin, 'yyyy-MM-dd')}"
+               th:value="${condition} == null ? ${#dates.format(new java.util.Date(), 'yyyy-MM-dd')} : ${#dates.format(condition.begin, 'yyyy-MM-dd')}"
                class="form-control">
     </div>
     <div class="form-group">
         <label>结束日期</label>
         <input id="end_date" type="text" th:name="end"
-               th:value="${condition} == null ? ${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd')} : ${#dates.format(condition.end, 'yyyy-MM-dd')}"
+               th:value="${condition} == null ? ${#dates.format(new java.util.Date(), 'yyyy-MM-dd')} : ${#dates.format(condition.end, 'yyyy-MM-dd')}"
                class="form-control">
     </div>
     <div class="form-group">

@@ -24,7 +24,7 @@ public interface ConsumptionStatisticDao {
 
     List<ConsumptionStatistic> statisticConsumption(@Param("begin") Date begin, @Param("end") Date end, @Param(
             "consumptionType") ConsumptionType consumptionType, @Param("payType") PayType payType);
-    @Cacheable(cacheNames = {"monthConsumptionStatistic"}, key = "'statistic:'+#year+'-'+#month")
+    //@Cacheable(cacheNames = {"monthConsumptionStatistic"}, key = "'statistic:'+#year+'-'+#month")
     List<MonthConsumptionStatistic> statisticConsumptionByMonth(@Param("year") int year, @Param("month") int month);
 
 }
