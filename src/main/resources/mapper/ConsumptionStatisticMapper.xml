@@ -19,6 +19,14 @@
         <result column="consumption_type" property="type.id"/>
     </resultMap>
 
+    <resultMap id="yearConsumptionStatistic" type="com.tiger.consumption.manager.model.YearMothConsumptionStatistic">
+        <result column="year" property="year"/>
+        <result column="month" property="month"/>
+        <result column="total" property="total"/>
+    </resultMap>
+
+
+
     <sql id="time_between">
          <![CDATA[
          t1.time >= #{begin, jdbcType=DATE} AND t1.time <= #{end, jdbcType=DATE}
@@ -67,5 +75,10 @@
         and month(t1.time) = #{month}
         and YEAR(t1.time) = #{year}
         group by MONTH(t1.`time`), t1.`type`;
+    </select>
+
+    <select id="statisticConsumptionByYear" resultMap="yearConsumptionStatistic">
+        select YEAR(t1.time) as `year`, MONTH(t1.time) as `month`, sum(t1.`amount`) as `total` from consumption_record t1
+        where <![CDATA[ YEAR(t1.time) >= #{start, jdbcType=INTEGER} AND YEAR(t1.time) <= #{end, jdbcType=INTEGER}]]> group by MONTH(t1.time) order by `year`, `month`;
     </select>
 </mapper>

@@ -6,7 +6,7 @@
 
     <groupId>consumption-manager</groupId>
     <artifactId>tiger</artifactId>
-    <version>1.2</version>
+    <version>1.2.2</version>
 
     <name>consumption-manager</name>
     <!-- FIXME change it to the project's website -->
@@ -105,11 +105,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-thymeleaf</artifactId>
                 <version>2.3.0.RELEASE</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-mail</artifactId>
-                <version>2.2.6.RELEASE</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>

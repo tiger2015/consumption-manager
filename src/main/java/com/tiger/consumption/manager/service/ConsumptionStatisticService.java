@@ -1,9 +1,6 @@
 package com.tiger.consumption.manager.service;
 
-import com.tiger.consumption.manager.model.ConsumptionStatistic;
-import com.tiger.consumption.manager.model.ConsumptionType;
-import com.tiger.consumption.manager.model.MonthConsumptionStatistic;
-import com.tiger.consumption.manager.model.PayType;
+import com.tiger.consumption.manager.model.*;
 
 import java.util.Date;
 import java.util.List;
@@ -19,5 +16,7 @@ public interface ConsumptionStatisticService {
     List<ConsumptionStatistic> statisticConsumption(Date begin, Date end, ConsumptionType consumptionType, PayType payType);
 
     List<MonthConsumptionStatistic> statisticConsumptionByMonth(int year, int month);
+
+    List<YearMothConsumptionStatistic> statisticConsumptionByYear(int start, int end);
 
 }

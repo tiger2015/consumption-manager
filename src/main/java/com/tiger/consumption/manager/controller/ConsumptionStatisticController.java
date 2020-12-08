@@ -80,4 +80,11 @@ public class ConsumptionStatisticController {
                 consumptionStatisticService.statisticConsumptionByMonth(year, month);
         return monthConsumptionStatistics;
     }
+
+    @RequestMapping(path = "/yearConsumptionStatistic")
+    @ResponseBody
+    public Object yearConsumptionStatistic(@RequestParam("start") int start, @RequestParam("end") int end){
+        return  consumptionStatisticService.statisticConsumptionByYear(start, end);
+    }
+
 }

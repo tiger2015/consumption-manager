@@ -21,6 +21,7 @@ $(function () {
 
     var now = new Date()
     showStatistic(now.getFullYear(), now.getMonth() + 1)
+    showStatisticByYear(now.getFullYear(), now.getFullYear())
 
     /*
     $.datetimepicker.setLocale('ch');
@@ -42,6 +43,11 @@ $(function () {
             showStatistic(year, month)
         }
     );
+
+    $("#statisticByYearButton").click(function () {
+        var year = $("#consumption_year").val();
+        showStatisticByYear(year, year)
+    });
 
     function showStatistic(year, month) {
         $.ajax({
@@ -79,11 +85,70 @@ $(function () {
                         monthOptions += "<option " + "value= '" + start + "'>" + start + "</option>";
                     }
                 }
-                $("#date_of_month").html(monthOptions) ;
+                $("#date_of_month").html(monthOptions);
             },
             error: function (error) {
                 myChart.clear();
             }
         })
     }
-})
+
+    var yearStatisticChart = echarts.init(document.getElementById('year_consumption_chart'));
+    var yearStatisticOption = {
+        title: {
+            text: ''
+        },
+        tooltip: {},
+        legend: {
+            data: []
+        },
+        xAxis: {
+            type: "category",
+            data: []
+        },
+        yAxis: {
+            type: "value"
+        },
+        series: [{
+            name: '',
+            type: 'line',
+            data: []
+        }]
+    };
+
+
+    function showStatisticByYear(start, end) {
+        $.ajax({
+            type: "GET",
+            contentType: "application/json;charset=UTF-8",
+            url: "./yearConsumptionStatistic?start=" + start + "&end=" + end,
+            success: function (result) {
+                yearStatisticChart.clear()
+                if (result.length > 0) {
+                    yearStatisticOption.title.text = start + "年每月统计"
+                    for (var i = 0; i < result.length; i++) {
+                        yearStatisticOption.xAxis.data[i] = result[i].year + "-" + result[i].month;
+                        yearStatisticOption.series[0].data[i] = result[i].total;
+                    }
+                   yearStatisticChart.setOption(yearStatisticOption)
+                } else {
+                   yearStatisticChart.clear()
+                }
+                var now = new Date();
+                var begin;
+                var yearOptions = ""
+                for (begin = now.getFullYear() - 5; begin <= now.getFullYear(); begin++) {
+                    if (begin == parseInt(start)) {
+                        yearOptions += "<option " + "value= '" + begin + "' selected>" + begin + "</option>";
+                    } else {
+                        yearOptions += "<option " + "value= '" + begin + "'>" + begin + "</option>";
+                    }
+                }
+                $("#consumption_year").html(yearOptions);
+            },
+            error: function (error) {
+                yearStatisticChart.clear()
+            }
+        })
+    }
+});

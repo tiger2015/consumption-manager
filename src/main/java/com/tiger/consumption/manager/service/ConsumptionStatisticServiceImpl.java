@@ -1,10 +1,7 @@
 package com.tiger.consumption.manager.service;
 
 import com.tiger.consumption.manager.dao.ConsumptionStatisticDao;
-import com.tiger.consumption.manager.model.ConsumptionStatistic;
-import com.tiger.consumption.manager.model.ConsumptionType;
-import com.tiger.consumption.manager.model.MonthConsumptionStatistic;
-import com.tiger.consumption.manager.model.PayType;
+import com.tiger.consumption.manager.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,5 +29,10 @@ public class ConsumptionStatisticServiceImpl implements ConsumptionStatisticServ
     @Override
     public List<MonthConsumptionStatistic> statisticConsumptionByMonth(int year, int month) {
         return consumptionStatisticDao.statisticConsumptionByMonth(year, month);
+    }
+
+    @Override
+    public List<YearMothConsumptionStatistic> statisticConsumptionByYear(int start, int end) {
+        return consumptionStatisticDao.statisticConsumptionByYear(start, end);
     }
 }
